@@ -18,7 +18,7 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 const translations: Record<Language, Record<string, string>> = {
   zh: {
     // 品牌名
-    'brand.name': '汇刃',
+    'brand.name': '明DAO',
     'brand.full': 'FX Killer',
 
     // 导航栏
@@ -39,7 +39,7 @@ const translations: Record<Language, Record<string, string>> = {
     'hero.cta.dashboard': '进入交易系统',
 
     // Why Choose Section
-    'why.title': '为什么选择汇刃',
+    'why.title': '为什么选择明DAO',
     'why.subtitle': '专注筛选和培养顶尖外汇交易员，培养真正适合的人，留下极少数，劝返大多数',
 
     // Advantages
@@ -52,7 +52,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Comparison
     'comparison.vs': 'VS 传统外汇培训',
-    'comparison.fxkiller': '汇刃',
+    'comparison.fxkiller': '明DAO',
     'comparison.traditional': '传统培训机构',
     'comparison.free': '完全免费 - 无任何培训费用',
     'comparison.practical': '实战培养 - 30天系统化职业训练',

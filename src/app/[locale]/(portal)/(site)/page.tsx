@@ -56,7 +56,7 @@ const DummyContent = () => {
   return (
     <div className="w-full -mt-20">
       {/* Hero Section - Full Width K-line Background */}
-      <div className="relative bg-white dark:bg-black overflow-hidden h-screen">
+      <div className="relative bg-gradient-to-br from-blue-200 via-sky-100 to-emerald-200 dark:from-blue-950 dark:via-slate-900 dark:to-emerald-900 overflow-hidden h-screen">
         {/* K-line Chart Background */}
         <div className="absolute inset-0 w-full h-full">
           <CandlestickChart />
@@ -66,13 +66,13 @@ const DummyContent = () => {
         <div
           className="absolute inset-0 w-full h-full pointer-events-none"
           style={{
-            background: 'linear-gradient(to right, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 30%, rgba(255, 255, 255, 0.3) 60%, rgba(255, 255, 255, 0) 100%)'
+            background: 'linear-gradient(to right, rgba(191, 219, 254, 0.92) 0%, rgba(165, 243, 252, 0.75) 35%, rgba(167, 243, 208, 0.35) 70%, rgba(255, 255, 255, 0) 100%)'
           }}
         />
         <div
           className="absolute inset-0 w-full h-full pointer-events-none dark:block hidden"
           style={{
-            background: 'linear-gradient(to right, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.85) 30%, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0) 100%)'
+            background: 'linear-gradient(to right, rgba(23, 37, 84, 0.92) 0%, rgba(15, 118, 110, 0.78) 35%, rgba(22, 101, 52, 0.35) 70%, rgba(0, 0, 0, 0) 100%)'
           }}
         />
 

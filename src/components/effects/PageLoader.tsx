@@ -35,8 +35,8 @@ export default function PageLoader() {
               className="text-center"
             >
               <div className="text-5xl font-bold">
-                <span className="text-black dark:text-white">FX</span>
-                <span className="text-gray-400 dark:text-gray-600">Killer</span>
+                <span className="text-black dark:text-white">明</span>
+                <span className="text-gray-400 dark:text-gray-600">DAO</span>
               </div>
             </motion.div>
 
