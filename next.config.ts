@@ -1,19 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: 'export', // 启用静态导出
+  trailingSlash: true,
   images: {
-    remotePatterns: [
-      {
-        hostname: "api.microlink.io"
-      },
-      {
-        hostname: "qingwuwei.github.io"
-      }
-    ]
+    unoptimized: true,
   },
-  // Tell Next.js these packages use native Node.js modules
-  serverExternalPackages: ['binance-api-node'],
+  // 移除或注释掉serverExternalPackages
+  // serverExternalPackages: ['binance-api-node'],
 };
 
 export default nextConfig;
