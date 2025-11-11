@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-
+///
 import { Metadata } from 'next'
 
 export const dynamic = 'force-static'
@@ -14,7 +14,7 @@ export async function GET() {
     },
   })
 }
-
+///
 
 
 export default function robots(): MetadataRoute.Robots {
