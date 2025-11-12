@@ -7,10 +7,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const lang = getLanguageFromLocale(locale);
 
   return generateBilingualMetadata(
-    '外汇交易教育中心 - 系统化学习外汇交易知识 | FX Killer',
-    'Forex Trading Education Center - Systematic Learning Path | FX Killer',
-    '完整的外汇交易教育体系，涵盖基础知识、技术分析、交易策略、风险管理。从零基础到职业交易员，FX Killer助你系统化学习外汇交易。',
-    'Complete forex trading education system covering fundamentals, technical analysis, trading strategies, and risk management. From beginner to professional trader with FX Killer.',
+    '外汇交易教育中心 - 系统化学习外汇交易知识 | 明DAO',
+    'Forex Trading Education Center - Systematic Learning Path | 明DAO',
+    '完整的外汇交易教育体系，涵盖基础知识、技术分析、交易策略、风险管理。从零基础到职业交易员，明DAO助你系统化学习外汇交易。',
+    'Complete forex trading education system covering fundamentals, technical analysis, trading strategies, and risk management. From beginner to professional trader with 明DAO.',
     '外汇教育, 外汇学习, 交易课程, 外汇培训, 技术分析教程, 交易策略, 风险管理',
     'forex education, forex learning, trading courses, forex training, technical analysis tutorials, trading strategies, risk management',
     lang
@@ -211,7 +211,7 @@ export default async function EducationPage({ params }: { params: Promise<{ loca
         <div className="bg-gray-50 dark:bg-gray-900 border-2 border-black dark:border-white p-12 mb-20">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-black mb-6 text-black dark:text-white">
-              {isZh ? '为什么选择 FX Killer 教育中心？' : 'Why Choose FX Killer Education Center?'}
+              {isZh ? '为什么选择 明DAO 教育中心？' : 'Why Choose 明DAO Education Center?'}
             </h2>
             <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
               {isZh
@@ -233,12 +233,12 @@ export default async function EducationPage({ params }: { params: Promise<{ loca
             <p className="text-xl mb-8 text-gray-300 dark:text-gray-700">
               {isZh ? (
                 <>
-                  完成教育中心的学习后，加入 FX Killer 30天系统化培训<br />
+                  完成教育中心的学习后，加入 明DAO 30天系统化培训<br />
                   通过考核，获得真实资金进行交易
                 </>
               ) : (
                 <>
-                  After completing the education center, join FX Killer 30-day systematic training<br />
+                  After completing the education center, join 明DAO 30-day systematic training<br />
                   Pass the evaluation and receive real funds for trading
                 </>
               )}

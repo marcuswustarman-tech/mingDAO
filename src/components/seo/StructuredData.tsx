@@ -4,8 +4,8 @@ export default function StructuredData() {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",
-    "name": "FX Killer",
-    "alternateName": "FX Killer",
+    "name": "明DAO",
+    "alternateName": "明DAO",
     "url": "https://fxkiller.com",
     "logo": "https://fxkiller.com/logo.png",
     "description": "专注于外汇交易的职业交易员培训平台，提供系统化外汇交易培训、实战训练和资金支持。",
@@ -16,7 +16,7 @@ export default function StructuredData() {
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "customer service",
-      "email": "x.stark.dylan@gmail.com"
+      "email": "marcuswustarman@gmail.com"
     },
     "offers": {
       "@type": "Offer",
@@ -33,7 +33,7 @@ export default function StructuredData() {
     "description": "30个工作日系统化培养外汇交易员，包括规则学习、盈利练习、小额实盘、大额矩阵四个阶段",
     "provider": {
       "@type": "Organization",
-      "name": "FX Killer",
+      "name": "明DAO",
       "url": "https://fxkiller.com"
     },
     "educationalLevel": "专业级",
@@ -51,7 +51,7 @@ export default function StructuredData() {
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "什么是 FX Killer 外汇交易员培训？",
+        "name": "什么是 明DAO 外汇交易员培训？",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "我们是一个专注于外汇交易的职业交易员培训平台。我们致力于用专业的方法筛选和培养真正适合外汇市场的交易人才。我们将在30个工作日内判断新人是否是做外汇交易的可塑之才。"

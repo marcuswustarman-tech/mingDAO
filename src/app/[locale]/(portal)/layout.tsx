@@ -19,33 +19,33 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL('https://fxkiller.com'),
   title: {
-    default: "FX Killer - Professional FX Trader Training Platform | 外汇交易职业交易员培训",
-    template: "%s | FX Killer"
+    default: "明DAO交易孵化器",
+    template: "%s | 明DAO交易孵化器"
   },
-  description: "FX Killer - 专注于外汇交易的职业交易员培训平台。提供系统化外汇交易培训、实战训练和资金支持。通过专业考核即可获得资金管理权限，分润比例高达90%。培养真正适合外汇市场的专业交易员。",
-  keywords: ["FX Killer", "外汇交易", "外汇培训", "职业交易员", "FX交易", "外汇交易员", "外汇培训平台", "forex交易", "专业交易员培训", "外汇实战", "外汇技能培训"],
-  authors: [{ name: "FX Killer" }],
-  creator: "FX Killer",
-  publisher: "FX Killer",
+  description: "明DAO - 专注于外汇交易的职业交易员培训平台。提供系统化外汇交易培训、实战训练和资金支持。通过专业考核即可获得资金管理权限，分润比例高达90%。培养真正适合外汇市场的专业交易员。",
+  keywords: ["明DAO", "外汇交易", "外汇培训", "职业交易员", "FX交易", "外汇交易员", "外汇培训平台", "forex交易", "专业交易员培训", "外汇实战", "外汇技能培训"],
+  authors: [{ name: "明DAO" }],
+  creator: "明DAO",
+  publisher: "明DAO",
   openGraph: {
     type: "website",
     locale: "zh_CN",
     url: "https://fxkiller.com",
-    siteName: "FX Killer",
-    title: "FX Killer - Professional FX Trader Training Platform",
+    siteName: "明DAO",
+    title: "明DAO - Professional FX Trader Training Platform",
     description: "专注于外汇交易的职业交易员培训平台。提供系统化外汇交易培训、实战训练和资金支持。通过专业考核即可获得资金管理权限，分润比例高达90%。",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "FX Killer"
+        alt: "明DAO"
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "FX Killer - Professional FX Trader Training Platform",
+    title: "明DAO - Professional FX Trader Training Platform",
     description: "专注于外汇交易的职业交易员培训平台。提供系统化外汇交易培训、实战训练和资金支持。",
     images: ["/og-image.jpg"]
   },

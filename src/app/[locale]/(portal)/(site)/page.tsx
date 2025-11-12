@@ -118,7 +118,7 @@ const DummyContent = () => {
         </div>
       </div>
 
-      {/* 为什么选择 FX Killer - 增强版 */}
+      {/* 为什么选择 明DAO - 增强版 */}
       <div className="max-w-7xl mx-auto px-6 py-20">
         <h2 className="text-4xl font-bold text-center mb-4 text-black dark:text-white border-b-4 border-black dark:border-white inline-block pb-2 w-full">
           {t('why.title')}
@@ -178,7 +178,7 @@ const DummyContent = () => {
             <span className="bg-black dark:bg-white text-white dark:text-black px-4 py-2">{t('comparison.vs')}</span>
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* FX Killer */}
+            {/* 明DAO */}
             <div className="bg-white dark:bg-gray-800 p-6 border-l-4 border-black dark:border-white">
               <h4 className="text-xl font-bold mb-4 text-black dark:text-white flex items-center gap-2">
                 <span className="text-2xl"></span> {t('comparison.fxkiller')}

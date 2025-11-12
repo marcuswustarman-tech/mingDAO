@@ -19,7 +19,7 @@ const translations: Record<Language, Record<string, string>> = {
   zh: {
     // 品牌名
     'brand.name': '明DAO',
-    'brand.full': 'FX Killer',
+    'brand.full': '明DAO',
 
     // 导航栏
     'nav.home': '首页',
@@ -28,6 +28,7 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.blog': '博客',
     'nav.psychology': '测评',
     'nav.dashboard': '量化',
+    'nav.resume': '简历接收',
     'nav.faq': 'FAQ',
     'nav.membership': '捐赠',
     'nav.join': '立即报名',
@@ -164,7 +165,7 @@ const translations: Record<Language, Record<string, string>> = {
     'footer.contact.focus': '专注外汇交易培训',
     'footer.contact.cultivate': '培养职业外汇交易员',
     'footer.contact.apply': '立即申请',
-    'footer.copyright': '© 汇刃 · 专业外汇交易员培训平台 · fxkiller.com',
+    'footer.copyright': '© 明DAO · 专业外汇交易员培训平台 · fxkiller.com',
     'footer.disclaimer': ' 外汇交易有风险，投资需谨慎 · 本站内容仅供学习参考，不构成投资建议',
     'footer.partners.title': '合作伙伴',
     'footer.partners.brokers': '合作经纪商',
@@ -290,7 +291,7 @@ const translations: Record<Language, Record<string, string>> = {
     'faq.hero.desc': '开启职业交易之路前，先读懂这些问题',
     'faq.search.placeholder': '搜索问题...',
     'faq.search.button': '搜索',
-    'faq.category.course': '关于 FX Killer',
+    'faq.category.course': '关于 明DAO',
     'faq.category.learning': '关于培训',
     'faq.category.pricing': '关于收入与分润',
     'faq.category.support': '交易铁律',
@@ -341,7 +342,7 @@ const translations: Record<Language, Record<string, string>> = {
     'donate.how.step1.title': '完成心理测评',
     'donate.how.step1.desc': '首先完成心理测评，确保您具备成为职业交易员的心理素质',
     'donate.how.step2.title': '发送邮件申请',
-    'donate.how.step2.desc': '邮件至 x.stark.dylan@gmail.com，说明您的意向',
+    'donate.how.step2.desc': '邮件至 marcuswustarman@gmail.com，说明您的意向',
     'donate.how.step3.title': '获取捐赠地址',
     'donate.how.step3.desc': '我们将通过邮件回复您具体的 USDT/USDC 捐赠地址',
     'donate.how.step4.title': '完成捐赠并开始培训',
@@ -424,6 +425,23 @@ const translations: Record<Language, Record<string, string>> = {
     'email.send': '打开邮件客户端',
     'email.close': '关闭',
 
+    // Resume Page
+    'resume.title': '简历接收',
+    'resume.subtitle': '提交您的简历，开启外汇交易员职业之路',
+    'resume.description': '我们正在寻找有潜力的外汇交易员。请将您的简历发送给我们，我们会尽快与您联系。',
+    'resume.hero.badge': 'RESUME SUBMISSION',
+    'resume.requirements.title': '基本要求',
+    'resume.requirements.education': '学历要求',
+    'resume.requirements.education.desc': '大专学历以上',
+    'resume.requirements.age': '年龄要求',
+    'resume.requirements.age.desc': '35岁以下',
+    'resume.requirements.qualities': '素质要求',
+    'resume.requirements.qualities.desc': '认真、细心、耐心、心理健康',
+    'resume.requirements.character': '性格特质',
+    'resume.requirements.character.desc': '性格内向、稳重、纪律严明且执行力强',
+    'resume.cta.title': '准备好提交简历了吗？',
+    'resume.cta.button': '提交简历',
+
     // Trading Dashboard
     'dashboard.title': '交易控制台',
     'dashboard.subtitle': 'XAUUSD Hybrid Strategy - Professional Trading System',
@@ -433,7 +451,7 @@ const translations: Record<Language, Record<string, string>> = {
     'dashboard.tab.tianti': '天梯',
     'dashboard.tab.config': '策略配置',
     'dashboard.footer.warning': ' 仅用于测试环境。实盘交易需要充分测试和风险评估。',
-    'dashboard.footer.copyright': '2024-2025 © FX Killer 专业外汇交易员培训平台',
+    'dashboard.footer.copyright': '2024-2025 © 明DAO 专业外汇交易员培训平台',
 
     // Admin Login
     'login.title': '交易控制台',
@@ -492,13 +510,13 @@ const translations: Record<Language, Record<string, string>> = {
     'blog.backToBlog': '返回博客',
     'blog.relatedPosts': '相关文章',
     'blog.cta.title': '准备开始您的交易之旅？',
-    'blog.cta.subtitle': '加入FX Killer，接受专业的交易员培训',
+    'blog.cta.subtitle': '加入明DAO，接受专业的交易员培训',
     'blog.cta.button': '立即加入',
   },
   en: {
     // Brand Name
-    'brand.name': 'FX Killer',
-    'brand.full': 'FX Killer',
+    'brand.name': '明DAO',
+    'brand.full': '明DAO',
 
     // Navigation
     'nav.home': 'Home',
@@ -507,6 +525,7 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.blog': 'Blog',
     'nav.psychology': 'Test',
     'nav.dashboard': 'Quant',
+    'nav.resume': 'Resume',
     'nav.faq': 'FAQ',
     'nav.membership': 'Donate',
     'nav.join': 'Join Now',
@@ -518,7 +537,7 @@ const translations: Record<Language, Record<string, string>> = {
     'hero.cta.dashboard': 'Enter Trading System',
 
     // Why Choose Section
-    'why.title': 'Why Choose FX Killer',
+    'why.title': 'Why Choose 明DAO',
     'why.subtitle': 'Focused on selecting and cultivating elite forex traders, nurturing those truly suited, retaining the few, and advising the majority to pursue other paths',
 
     // Advantages
@@ -531,7 +550,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Comparison
     'comparison.vs': 'VS Traditional Forex Training',
-    'comparison.fxkiller': 'FX Killer',
+    'comparison.fxkiller': '明DAO',
     'comparison.traditional': 'Traditional Training Institutions',
     'comparison.free': 'Completely Free - No Training Fees',
     'comparison.practical': 'Practical Training - 30 Days of Systematic Professional Training',
@@ -643,7 +662,7 @@ const translations: Record<Language, Record<string, string>> = {
     'footer.contact.focus': 'Focused on forex training',
     'footer.contact.cultivate': 'Cultivating professional forex traders',
     'footer.contact.apply': 'Apply Now',
-    'footer.copyright': '© FX Killer · Professional Forex Trader Training Platform · fxkiller.com',
+    'footer.copyright': '© 明DAO · Professional Forex Trader Training Platform · fxkiller.com',
     'footer.disclaimer': ' Forex trading carries risk, investment requires caution · Site content for learning reference only, not investment advice',
     'footer.partners.title': 'Partners',
     'footer.partners.brokers': 'Partner Brokers',
@@ -655,7 +674,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Join Us Page
     'joinus.hero.badge': 'PROFESSIONAL TRADER TRAINING',
-    'joinus.hero.title1': 'FX Killer',
+    'joinus.hero.title1': '明DAO',
     'joinus.hero.title2': 'Forex Trader Training',
     'joinus.hero.subtitle': 'Cultivating those truly suited, retaining the few, advising the majority to pursue other paths',
     'joinus.hero.stat1': 'Pass Rate',
@@ -769,7 +788,7 @@ const translations: Record<Language, Record<string, string>> = {
     'faq.hero.desc': 'Understand these questions before starting your professional trading journey',
     'faq.search.placeholder': 'Search questions...',
     'faq.search.button': 'Search',
-    'faq.category.course': 'About FX Killer',
+    'faq.category.course': 'About 明DAO',
     'faq.category.learning': 'About Training',
     'faq.category.pricing': 'About Income & Profit Share',
     'faq.category.support': 'Trading Iron Laws',
@@ -820,7 +839,7 @@ const translations: Record<Language, Record<string, string>> = {
     'donate.how.step1.title': 'Complete Psychology Test',
     'donate.how.step1.desc': 'First complete the psychology test to ensure you possess the psychological qualities to become a professional trader',
     'donate.how.step2.title': 'Send Email Application',
-    'donate.how.step2.desc': 'Email to x.stark.dylan@gmail.com explaining your intention',
+    'donate.how.step2.desc': 'Email to marcuswustarman@gmail.com explaining your intention',
     'donate.how.step3.title': 'Obtain Donation Address',
     'donate.how.step3.desc': 'We will reply via email with the specific USDT/USDC donation address',
     'donate.how.step4.title': 'Complete Donation and Begin Training',
@@ -903,6 +922,23 @@ const translations: Record<Language, Record<string, string>> = {
     'email.send': 'Open Email Client',
     'email.close': 'Close',
 
+    // Resume Page
+    'resume.title': 'Resume Submission',
+    'resume.subtitle': 'Submit your resume and start your forex trader career',
+    'resume.description': 'We are looking for potential forex traders. Please send us your resume, and we will contact you as soon as possible.',
+    'resume.hero.badge': 'RESUME SUBMISSION',
+    'resume.requirements.title': 'Basic Requirements',
+    'resume.requirements.education': 'Education',
+    'resume.requirements.education.desc': 'Associate Degree or Higher',
+    'resume.requirements.age': 'Age',
+    'resume.requirements.age.desc': 'Under 35 Years Old',
+    'resume.requirements.qualities': 'Qualities',
+    'resume.requirements.qualities.desc': 'Serious, Meticulous, Patient, Psychologically Healthy',
+    'resume.requirements.character': 'Character Traits',
+    'resume.requirements.character.desc': 'Introverted, Steady, Disciplined, Strong Execution',
+    'resume.cta.title': 'Ready to Submit Your Resume?',
+    'resume.cta.button': 'Submit Resume',
+
     // Trading Dashboard
     'dashboard.title': 'Trading Dashboard',
     'dashboard.subtitle': 'XAUUSD Hybrid Strategy - Professional Trading System',
@@ -912,7 +948,7 @@ const translations: Record<Language, Record<string, string>> = {
     'dashboard.tab.tianti': 'Leaderboard',
     'dashboard.tab.config': 'Strategy Config',
     'dashboard.footer.warning': ' For testing environment only. Live trading requires thorough testing and risk assessment.',
-    'dashboard.footer.copyright': '2024-2025 © FX Killer Professional Forex Trader Training Platform',
+    'dashboard.footer.copyright': '2024-2025 © 明DAO Professional Forex Trader Training Platform',
 
     // Admin Login
     'login.title': 'Trading Dashboard',
@@ -971,7 +1007,7 @@ const translations: Record<Language, Record<string, string>> = {
     'blog.backToBlog': 'Back to Blog',
     'blog.relatedPosts': 'Related Posts',
     'blog.cta.title': 'Ready to Start Your Trading Journey?',
-    'blog.cta.subtitle': 'Join FX Killer for professional trader training',
+    'blog.cta.subtitle': 'Join 明DAO for professional trader training',
     'blog.cta.button': 'Join Now',
   }
 };
