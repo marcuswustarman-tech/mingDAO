@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: 'export', // 启用静态导出
+  // 移除 output: 'export' 以支持 middleware 和动态渲染
   trailingSlash: true,
   images: {
     unoptimized: true,
