@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 
 interface Candle {
   time: number;
@@ -11,7 +12,13 @@ interface Candle {
   volume: number;
 }
 
-export default function CandlestickChart() {
+export type ChartStyle = 'default' | 'ink' | 'pixel';
+
+interface CandlestickChartProps {
+  style?: ChartStyle;
+}
+
+export default function CandlestickChart({ style = 'default' }: CandlestickChartProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -21,6 +28,57 @@ export default function CandlestickChart() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    // Style configurations
+    const styleConfig = {
+      default: {
+        // Current style - professional trading chart
+        gridColor: 'rgba(200, 200, 200, 0.3)',
+        gridLineWidth: 1,
+        bullishColor: { body: 'rgba(0, 0, 0, 1)', wick: 'rgba(0, 0, 0, 1)' },
+        bearishColor: { body: 'rgba(0, 0, 0, 1)', wick: 'rgba(0, 0, 0, 1)' },
+        weakColor: { body: 'rgba(180, 180, 180, 1)', wick: 'rgba(180, 180, 180, 1)' },
+        emaColor: 'rgba(180, 180, 180, 1)',
+        emaLineWidth: 4,
+        askColor: 'rgba(239, 68, 68, 0.6)',
+        bidColor: 'rgba(34, 197, 94, 0.6)',
+        candleWidth: 10,
+        enableAntiAlias: true,
+        backgroundAlpha: 1,
+      },
+      ink: {
+        // Ink wash painting style - 水墨风
+        gridColor: 'rgba(0, 0, 0, 0.05)',
+        gridLineWidth: 0.5,
+        bullishColor: { body: 'rgba(0, 0, 0, 0.15)', wick: 'rgba(0, 0, 0, 0.4)' },
+        bearishColor: { body: 'rgba(0, 0, 0, 0.8)', wick: 'rgba(0, 0, 0, 0.9)' },
+        weakColor: { body: 'rgba(0, 0, 0, 0.25)', wick: 'rgba(0, 0, 0, 0.35)' },
+        emaColor: 'rgba(0, 0, 0, 0.2)',
+        emaLineWidth: 3,
+        askColor: 'rgba(0, 0, 0, 0.15)',
+        bidColor: 'rgba(0, 0, 0, 0.15)',
+        candleWidth: 10,
+        enableAntiAlias: true,
+        backgroundAlpha: 0.02,
+      },
+      pixel: {
+        // 8-bit pixel arcade style - 像素风
+        gridColor: 'rgba(100, 255, 100, 0.2)',
+        gridLineWidth: 1,
+        bullishColor: { body: 'rgba(0, 255, 0, 1)', wick: 'rgba(0, 255, 0, 1)' },
+        bearishColor: { body: 'rgba(255, 0, 0, 1)', wick: 'rgba(255, 0, 0, 1)' },
+        weakColor: { body: 'rgba(255, 255, 0, 1)', wick: 'rgba(255, 255, 0, 1)' },
+        emaColor: 'rgba(0, 255, 255, 1)',
+        emaLineWidth: 2,
+        askColor: 'rgba(255, 100, 100, 0.8)',
+        bidColor: 'rgba(100, 255, 100, 0.8)',
+        candleWidth: 12,
+        enableAntiAlias: false,
+        backgroundAlpha: 0.1,
+      },
+    };
+
+    const currentStyle = styleConfig[style];
+
     // Set canvas size
     const updateCanvasSize = () => {
       const dpr = window.devicePixelRatio || 1;
@@ -28,6 +86,11 @@ export default function CandlestickChart() {
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
       ctx.scale(dpr, dpr);
+
+      // Disable anti-aliasing for pixel style
+      if (!currentStyle.enableAntiAlias) {
+        ctx.imageSmoothingEnabled = false;
+      }
     };
 
     updateCanvasSize();
@@ -163,17 +226,33 @@ export default function CandlestickChart() {
       // Sensitivity = 1 (default): CCI1 period = 7, CCI2 period = 49
 
       if (cci1 >= 0 && cci2 >= 0) {
-        // Strong uptrend - Black border, hollow
-        return { body: 'rgba(0, 0, 0, 1)', wick: 'rgba(0, 0, 0, 1)', hollow: true };
+        // Strong uptrend - Bullish color, hollow
+        return {
+          body: isBullish ? currentStyle.bullishColor.body : currentStyle.bearishColor.body,
+          wick: isBullish ? currentStyle.bullishColor.wick : currentStyle.bearishColor.wick,
+          hollow: true
+        };
       } else if (cci1 < 0 && cci2 >= 0) {
-        // Weak/warning - Light gray, bullish candles hollow
-        return { body: 'rgba(180, 180, 180, 1)', wick: 'rgba(180, 180, 180, 1)', hollow: isBullish };
+        // Weak/warning - Weak color, bullish candles hollow
+        return {
+          body: currentStyle.weakColor.body,
+          wick: currentStyle.weakColor.wick,
+          hollow: isBullish
+        };
       } else if (cci1 < 0 && cci2 < 0) {
-        // Strong downtrend - Black, filled
-        return { body: 'rgba(0, 0, 0, 1)', wick: 'rgba(0, 0, 0, 1)', hollow: false };
+        // Strong downtrend - Bearish color, filled
+        return {
+          body: isBullish ? currentStyle.bullishColor.body : currentStyle.bearishColor.body,
+          wick: isBullish ? currentStyle.bullishColor.wick : currentStyle.bearishColor.wick,
+          hollow: false
+        };
       } else { // cci1 > 0 && cci2 < 0
-        // Bounce/weak - Light gray, bullish candles hollow
-        return { body: 'rgba(180, 180, 180, 1)', wick: 'rgba(180, 180, 180, 1)', hollow: isBullish };
+        // Bounce/weak - Weak color, bullish candles hollow
+        return {
+          body: currentStyle.weakColor.body,
+          wick: currentStyle.weakColor.wick,
+          hollow: isBullish
+        };
       }
     };
 
@@ -279,8 +358,8 @@ export default function CandlestickChart() {
     let lastPrice = 1000;
     let currentBidPrice = lastPrice - 0.3; // Bid price (买价) = lower
     let currentAskPrice = lastPrice + 0.3; // Ask price (卖价) = higher
-    const candleWidth = 10;
-    const candleSpacing = 14;
+    const candleWidth = currentStyle.candleWidth;
+    const candleSpacing = candleWidth + 4;
 
     // Trend state management
     let currentTrend: 'up' | 'down' | 'sideways' = 'up';
@@ -366,8 +445,8 @@ export default function CandlestickChart() {
       // ===== MAIN CHART (2/3 top) =====
 
       // Draw vertical grid lines (main chart)
-      ctx.strokeStyle = 'rgba(200, 200, 200, 0.3)';
-      ctx.lineWidth = 1;
+      ctx.strokeStyle = currentStyle.gridColor;
+      ctx.lineWidth = currentStyle.gridLineWidth;
       for (let i = 0; i < candles.length; i += 10) {
         const x = i * candleSpacing + candleWidth / 2;
         ctx.beginPath();
@@ -432,7 +511,7 @@ export default function CandlestickChart() {
 
       // Draw ask price line (卖价 - red, higher price)
       const askY = padding.top + ((maxPrice - currentAskPrice) / priceRange) * mainChartHeight;
-      ctx.strokeStyle = 'rgba(239, 68, 68, 0.6)'; // Red - Ask (higher)
+      ctx.strokeStyle = currentStyle.askColor;
       ctx.lineWidth = 2;
       ctx.setLineDash([10, 5]);
       ctx.beginPath();
@@ -443,7 +522,7 @@ export default function CandlestickChart() {
 
       // Draw bid price line (买价 - green, lower price)
       const bidY = padding.top + ((maxPrice - currentBidPrice) / priceRange) * mainChartHeight;
-      ctx.strokeStyle = 'rgba(34, 197, 94, 0.6)'; // Green - Bid (lower)
+      ctx.strokeStyle = currentStyle.bidColor;
       ctx.lineWidth = 2;
       ctx.setLineDash([10, 5]);
       ctx.beginPath();
@@ -452,13 +531,13 @@ export default function CandlestickChart() {
       ctx.stroke();
       ctx.setLineDash([]);
 
-      // Draw EMA20 line (light gray 4px)
+      // Draw EMA20 line
       if (candles.length >= 20) {
         const closes = candles.map(c => c.close);
         const ema20 = calculateEMA(closes, 20);
 
-        ctx.strokeStyle = 'rgba(180, 180, 180, 1)'; // Light gray
-        ctx.lineWidth = 4;
+        ctx.strokeStyle = currentStyle.emaColor;
+        ctx.lineWidth = currentStyle.emaLineWidth;
         ctx.beginPath();
         ema20.forEach((value, index) => {
           const x = index * candleSpacing + candleWidth / 2;
@@ -477,20 +556,20 @@ export default function CandlestickChart() {
       // ===== SUB CHART (1/3 bottom) - Golden/Death Cross =====
 
       // Draw separator line (lighter and thinner)
-      ctx.strokeStyle = 'rgba(200, 200, 200, 0.6)';
-      ctx.lineWidth = 1;
+      ctx.strokeStyle = currentStyle.gridColor;
+      ctx.lineWidth = currentStyle.gridLineWidth;
       ctx.beginPath();
       ctx.moveTo(0, subChartTop);
       ctx.lineTo(rect.width, subChartTop);
       ctx.stroke();
 
       // Draw sub chart background
-      ctx.fillStyle = 'rgba(245, 245, 245, 0.3)';
+      ctx.fillStyle = `rgba(245, 245, 245, ${currentStyle.backgroundAlpha})`;
       ctx.fillRect(0, subChartTop, rect.width, subChartHeight);
 
       // Draw sub chart grid lines
-      ctx.strokeStyle = 'rgba(200, 200, 200, 0.3)';
-      ctx.lineWidth = 1;
+      ctx.strokeStyle = currentStyle.gridColor;
+      ctx.lineWidth = currentStyle.gridLineWidth;
       for (let i = 0; i <= 3; i++) {
         const y = subChartTop + (subChartHeight / 3) * i;
         ctx.beginPath();
@@ -512,8 +591,8 @@ export default function CandlestickChart() {
 
         // Draw zero axis line (horizontal dashed line)
         const zeroLineY = subChartTop + subChartHeight / 2; // Middle of sub chart
-        ctx.strokeStyle = 'rgba(180, 180, 180, 0.6)'; // Light gray
-        ctx.lineWidth = 1;
+        ctx.strokeStyle = currentStyle.gridColor;
+        ctx.lineWidth = currentStyle.gridLineWidth;
         ctx.setLineDash([5, 5]); // Dashed line
         ctx.beginPath();
         ctx.moveTo(0, zeroLineY);
@@ -521,9 +600,9 @@ export default function CandlestickChart() {
         ctx.stroke();
         ctx.setLineDash([]); // Reset dash
 
-        // Draw EMA12 line (fast line - black 1px)
-        ctx.strokeStyle = 'rgba(0, 0, 0, 1)'; // Black
-        ctx.lineWidth = 1;
+        // Draw EMA12 line (fast line)
+        ctx.strokeStyle = currentStyle.emaColor;
+        ctx.lineWidth = Math.max(1, currentStyle.emaLineWidth - 2);
         ctx.beginPath();
         ema12.forEach((value, index) => {
           if (value > 0) {
@@ -538,9 +617,10 @@ export default function CandlestickChart() {
         });
         ctx.stroke();
 
-        // Draw EMA26 line (slow line - dark gray 4px)
-        ctx.strokeStyle = 'rgba(80, 80, 80, 1)'; // Dark gray
-        ctx.lineWidth = 4;
+        // Draw EMA26 line (slow line)
+        const ema26Alpha = style === 'ink' ? '0.5' : '1';
+        ctx.strokeStyle = style === 'ink' ? `rgba(0, 0, 0, ${ema26Alpha})` : currentStyle.emaColor;
+        ctx.lineWidth = currentStyle.emaLineWidth;
         ctx.beginPath();
         ema26.forEach((value, index) => {
           if (value > 0) {
@@ -620,45 +700,69 @@ export default function CandlestickChart() {
       cancelAnimationFrame(animationId);
       window.removeEventListener('resize', updateCanvasSize);
     };
-  }, []);
+  }, [style]);
 
   return (
-    <div className="w-full h-full">
-      {/* K-line chart with 3D tilt and floating animation */}
-      <div
-        className="w-full h-full animate-float-3d"
-        style={{
-          transform: 'perspective(800px) rotateX(5deg) rotateY(-3deg)',
-          transformStyle: 'preserve-3d'
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={style}
+        initial={{
+          opacity: 0,
+          filter: style === 'ink' ? 'blur(10px)' : style === 'pixel' ? 'blur(0px)' : 'blur(5px)',
+          scale: style === 'pixel' ? 0.95 : 1,
         }}
+        animate={{
+          opacity: 1,
+          filter: 'blur(0px)',
+          scale: 1,
+        }}
+        exit={{
+          opacity: 0,
+          filter: style === 'ink' ? 'blur(10px)' : style === 'pixel' ? 'blur(0px)' : 'blur(5px)',
+          scale: style === 'pixel' ? 0.95 : 1,
+        }}
+        transition={{
+          duration: style === 'ink' ? 0.8 : style === 'pixel' ? 0.3 : 0.5,
+          ease: style === 'pixel' ? 'easeInOut' : 'easeOut',
+        }}
+        className="w-full h-full"
       >
-        <canvas
-          ref={canvasRef}
-          className="w-full h-full"
-          style={{ background: 'transparent' }}
-        />
-      </div>
+        {/* K-line chart with 3D tilt and floating animation */}
+        <div
+          className="w-full h-full animate-float-3d"
+          style={{
+            transform: 'perspective(800px) rotateX(5deg) rotateY(-3deg)',
+            transformStyle: 'preserve-3d'
+          }}
+        >
+          <canvas
+            ref={canvasRef}
+            className="w-full h-full"
+            style={{ background: 'transparent' }}
+          />
+        </div>
 
-      <style jsx>{`
-        @keyframes float-3d {
-          0%, 100% {
-            transform: perspective(800px) rotateX(5deg) rotateY(-3deg) translateZ(0px) translateY(0px);
+        <style jsx>{`
+          @keyframes float-3d {
+            0%, 100% {
+              transform: perspective(800px) rotateX(5deg) rotateY(-3deg) translateZ(0px) translateY(0px);
+            }
+            25% {
+              transform: perspective(800px) rotateX(4deg) rotateY(-2deg) translateZ(8px) translateY(-3px);
+            }
+            50% {
+              transform: perspective(800px) rotateX(6deg) rotateY(-4deg) translateZ(12px) translateY(2px);
+            }
+            75% {
+              transform: perspective(800px) rotateX(5deg) rotateY(-2.5deg) translateZ(6px) translateY(-2px);
+            }
           }
-          25% {
-            transform: perspective(800px) rotateX(4deg) rotateY(-2deg) translateZ(8px) translateY(-3px);
-          }
-          50% {
-            transform: perspective(800px) rotateX(6deg) rotateY(-4deg) translateZ(12px) translateY(2px);
-          }
-          75% {
-            transform: perspective(800px) rotateX(5deg) rotateY(-2.5deg) translateZ(6px) translateY(-2px);
-          }
-        }
 
-        .animate-float-3d {
-          animation: float-3d 8s ease-in-out infinite;
-        }
-      `}</style>
-    </div>
+          .animate-float-3d {
+            animation: float-3d 8s ease-in-out infinite;
+          }
+        `}</style>
+      </motion.div>
+    </AnimatePresence>
   );
 }

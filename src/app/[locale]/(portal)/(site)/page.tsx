@@ -11,7 +11,8 @@ import { FadeInSlide, ScaleFadeIn, HoverCard, PulseButton, FloatingBadge, Stagge
 import Testimonials from '@/components/custom/Testimonials';
 import StatsSection from '@/components/custom/StatsSection';
 import InterviewCTA from '@/components/custom/InterviewCTA';
-import CandlestickChart from '@/components/custom/CandlestickChart';
+import CandlestickChart, { ChartStyle } from '@/components/custom/CandlestickChart';
+import ChartStyleSwitcher from '@/components/custom/ChartStyleSwitcher';
 import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
 import ShineButton from '@/components/custom/ShineButton';
@@ -21,6 +22,21 @@ const DummyContent = () => {
   const { t, language } = useLanguage();
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [chartStyle, setChartStyle] = useState<ChartStyle>('default');
+
+  // Load chart style from localStorage on mount
+  useEffect(() => {
+    const savedStyle = localStorage.getItem('chartStyle') as ChartStyle;
+    if (savedStyle && ['default', 'ink', 'pixel'].includes(savedStyle)) {
+      setChartStyle(savedStyle);
+    }
+  }, []);
+
+  // Handle chart style change and save to localStorage
+  const handleStyleChange = (style: ChartStyle) => {
+    setChartStyle(style);
+    localStorage.setItem('chartStyle', style);
+  };
 
   // 收益图片列表 (1-15)
   const profitImages = [
@@ -59,8 +75,11 @@ const DummyContent = () => {
       <div className="relative bg-gradient-to-br from-blue-200 via-sky-100 to-emerald-200 dark:from-blue-950 dark:via-slate-900 dark:to-emerald-900 overflow-hidden h-screen">
         {/* K-line Chart Background */}
         <div className="absolute inset-0 w-full h-full">
-          <CandlestickChart />
+          <CandlestickChart style={chartStyle} />
         </div>
+
+        {/* Chart Style Switcher */}
+        <ChartStyleSwitcher currentStyle={chartStyle} onStyleChange={handleStyleChange} />
 
         {/* Gradient Overlay - from left (opaque) to right (transparent) */}
         <div
