@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import TradingTerminal from './TradingTerminal';
 
 interface Candle {
   time: number;
@@ -12,13 +12,18 @@ interface Candle {
   volume: number;
 }
 
-export type ChartStyle = 'default' | 'ink' | 'pixel';
+export type ChartStyle = 'default' | 'ink' | 'pixel' | 'river';
 
 interface CandlestickChartProps {
   style?: ChartStyle;
 }
 
 export default function CandlestickChart({ style = 'default' }: CandlestickChartProps) {
+  // 如果是 river 风格，渲染交易终端（9个K线图）
+  if (style === 'river') {
+    return <TradingTerminal />;
+  }
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -221,33 +226,37 @@ export default function CandlestickChart({ style = 'default' }: CandlestickChart
       return cciData;
     };
 
-    // Get candle color based on CCI (NS Indicator logic)
+    // Get candle color based on style and CCI
     const getCandleColor = (cci1: number, cci2: number, isBullish: boolean): { body: string; wick: string; hollow: boolean } => {
-      // Sensitivity = 1 (default): CCI1 period = 7, CCI2 period = 49
+      // For ink and pixel styles, use simple bullish/bearish logic
+      if (style === 'ink' || style === 'pixel') {
+        return {
+          body: isBullish ? currentStyle.bullishColor.body : currentStyle.bearishColor.body,
+          wick: isBullish ? currentStyle.bullishColor.wick : currentStyle.bearishColor.wick,
+          hollow: style === 'ink' ? isBullish : false // Ink style uses hollow for bullish
+        };
+      }
 
+      // Default style uses CCI indicator logic
       if (cci1 >= 0 && cci2 >= 0) {
-        // Strong uptrend - Bullish color, hollow
         return {
           body: isBullish ? currentStyle.bullishColor.body : currentStyle.bearishColor.body,
           wick: isBullish ? currentStyle.bullishColor.wick : currentStyle.bearishColor.wick,
           hollow: true
         };
       } else if (cci1 < 0 && cci2 >= 0) {
-        // Weak/warning - Weak color, bullish candles hollow
         return {
           body: currentStyle.weakColor.body,
           wick: currentStyle.weakColor.wick,
           hollow: isBullish
         };
       } else if (cci1 < 0 && cci2 < 0) {
-        // Strong downtrend - Bearish color, filled
         return {
           body: isBullish ? currentStyle.bullishColor.body : currentStyle.bearishColor.body,
           wick: isBullish ? currentStyle.bullishColor.wick : currentStyle.bearishColor.wick,
           hollow: false
         };
-      } else { // cci1 > 0 && cci2 < 0
-        // Bounce/weak - Weak color, bullish candles hollow
+      } else {
         return {
           body: currentStyle.weakColor.body,
           wick: currentStyle.weakColor.wick,
@@ -373,8 +382,10 @@ export default function CandlestickChart({ style = 'default' }: CandlestickChart
 
     const draw = () => {
       const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
 
-      ctx.clearRect(0, 0, rect.width, rect.height);
+      // Clear canvas with proper dimensions
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Add new candle
       const now = Date.now();
@@ -413,19 +424,19 @@ export default function CandlestickChart({ style = 'default' }: CandlestickChart
       const priceRange = maxPrice - minPrice;
       const padding = { top: 0, bottom: 0, left: 0, right: 0 };
 
-      // Split canvas: main chart (3/4), sub chart (1/4)
-      const mainChartHeight = (rect.height * 3) / 4;
-      const subChartHeight = rect.height / 4;
+      // For ink/pixel styles, use full height for main chart (no sub chart)
+      const mainChartHeight = (style === 'ink' || style === 'pixel') ? rect.height : (rect.height * 3) / 4;
+      const subChartHeight = (style === 'ink' || style === 'pixel') ? 0 : rect.height / 4;
       const subChartTop = mainChartHeight;
 
-      // Calculate CCI for NS indicator (Sensitivity = 1)
-      const cci1 = candles.length >= 7 ? calculateCCI(candles, 7) : [];
-      const cci2 = candles.length >= 49 ? calculateCCI(candles, 49) : [];
+      // Calculate CCI for NS indicator (只在 default 模式下计算)
+      const cci1 = (style === 'default' && candles.length >= 7) ? calculateCCI(candles, 7) : [];
+      const cci2 = (style === 'default' && candles.length >= 49) ? calculateCCI(candles, 49) : [];
 
-      // Calculate EMA for sub chart (Golden/Death Cross)
+      // Calculate EMA for sub chart (只在 default 模式下计算)
       const closes = candles.map(c => c.close);
-      const ema12 = candles.length >= 12 ? calculateEMA(closes, 12) : [];
-      const ema26 = candles.length >= 26 ? calculateEMA(closes, 26) : [];
+      const ema12 = (style === 'default' && candles.length >= 12) ? calculateEMA(closes, 12) : [];
+      const ema26 = (style === 'default' && candles.length >= 26) ? calculateEMA(closes, 26) : [];
 
       // Detect Golden Cross and Death Cross
       const crosses: Array<{ index: number; type: 'golden' | 'death' }> = [];
@@ -484,23 +495,28 @@ export default function CandlestickChart({ style = 'default' }: CandlestickChart
         const currentCCI2 = cci2[index] || 0;
         const candleColor = getCandleColor(currentCCI1, currentCCI2, isBullish);
 
-        // Draw wick with CCI color
+        // Draw wick with style-specific line width
         ctx.strokeStyle = candleColor.wick;
-        ctx.lineWidth = 1;
+        ctx.lineWidth = style === 'pixel' ? 3 : style === 'ink' ? 1 : 1;
         ctx.beginPath();
         ctx.moveTo(x, highY);
         ctx.lineTo(x, lowY);
         ctx.stroke();
 
-        // Draw body with CCI color
+        // Draw body with style-specific rendering
         if (candleColor.hollow) {
           // Hollow candle (空心)
           // First fill with background color to hide the wick
-          ctx.fillStyle = 'rgba(255, 255, 255, 1)'; // White background
+          const bgColor = style === 'ink'
+            ? 'rgba(255, 255, 255, 0.9)' // Slightly transparent for ink style
+            : style === 'pixel'
+            ? 'rgba(0, 0, 0, 1)' // Black for pixel style
+            : 'rgba(255, 255, 255, 1)'; // White for default
+          ctx.fillStyle = bgColor;
           ctx.fillRect(x - candleWidth / 2, bodyTop, candleWidth, bodyHeight);
           // Then draw the border
           ctx.strokeStyle = candleColor.body;
-          ctx.lineWidth = 2;
+          ctx.lineWidth = style === 'pixel' ? 3 : 2;
           ctx.strokeRect(x - candleWidth / 2, bodyTop, candleWidth, bodyHeight);
         } else {
           // Filled candle (实心)
@@ -508,6 +524,16 @@ export default function CandlestickChart({ style = 'default' }: CandlestickChart
           ctx.fillRect(x - candleWidth / 2, bodyTop, candleWidth, bodyHeight);
         }
       });
+
+      // 对于 ink 和 pixel 风格，跳过后续复杂指标的绘制
+      // 但不要提前 return，要继续到 requestAnimationFrame
+      if (style !== 'default') {
+        // 简化风格不绘制价格线、EMA、sub chart
+        animationId = requestAnimationFrame(draw);
+        return;
+      }
+
+      // ===== 以下内容仅在 default 风格时绘制 =====
 
       // Draw ask price line (卖价 - red, higher price)
       const askY = padding.top + ((maxPrice - currentAskPrice) / priceRange) * mainChartHeight;
@@ -703,66 +729,42 @@ export default function CandlestickChart({ style = 'default' }: CandlestickChart
   }, [style]);
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={style}
-        initial={{
-          opacity: 0,
-          filter: style === 'ink' ? 'blur(10px)' : style === 'pixel' ? 'blur(0px)' : 'blur(5px)',
-          scale: style === 'pixel' ? 0.95 : 1,
+    <div className="w-full h-full">
+      {/* K-line chart with 3D tilt and floating animation */}
+      <div
+        className="w-full h-full animate-float-3d"
+        style={{
+          transform: 'perspective(800px) rotateX(5deg) rotateY(-3deg)',
+          transformStyle: 'preserve-3d'
         }}
-        animate={{
-          opacity: 1,
-          filter: 'blur(0px)',
-          scale: 1,
-        }}
-        exit={{
-          opacity: 0,
-          filter: style === 'ink' ? 'blur(10px)' : style === 'pixel' ? 'blur(0px)' : 'blur(5px)',
-          scale: style === 'pixel' ? 0.95 : 1,
-        }}
-        transition={{
-          duration: style === 'ink' ? 0.8 : style === 'pixel' ? 0.3 : 0.5,
-          ease: style === 'pixel' ? 'easeInOut' : 'easeOut',
-        }}
-        className="w-full h-full"
       >
-        {/* K-line chart with 3D tilt and floating animation */}
-        <div
-          className="w-full h-full animate-float-3d"
-          style={{
-            transform: 'perspective(800px) rotateX(5deg) rotateY(-3deg)',
-            transformStyle: 'preserve-3d'
-          }}
-        >
-          <canvas
-            ref={canvasRef}
-            className="w-full h-full"
-            style={{ background: 'transparent' }}
-          />
-        </div>
+        <canvas
+          ref={canvasRef}
+          className="w-full h-full"
+          style={{ background: 'transparent' }}
+        />
+      </div>
 
-        <style jsx>{`
-          @keyframes float-3d {
-            0%, 100% {
-              transform: perspective(800px) rotateX(5deg) rotateY(-3deg) translateZ(0px) translateY(0px);
-            }
-            25% {
-              transform: perspective(800px) rotateX(4deg) rotateY(-2deg) translateZ(8px) translateY(-3px);
-            }
-            50% {
-              transform: perspective(800px) rotateX(6deg) rotateY(-4deg) translateZ(12px) translateY(2px);
-            }
-            75% {
-              transform: perspective(800px) rotateX(5deg) rotateY(-2.5deg) translateZ(6px) translateY(-2px);
-            }
+      <style jsx>{`
+        @keyframes float-3d {
+          0%, 100% {
+            transform: perspective(800px) rotateX(5deg) rotateY(-3deg) translateZ(0px) translateY(0px);
           }
+          25% {
+            transform: perspective(800px) rotateX(4deg) rotateY(-2deg) translateZ(8px) translateY(-3px);
+          }
+          50% {
+            transform: perspective(800px) rotateX(6deg) rotateY(-4deg) translateZ(12px) translateY(2px);
+          }
+          75% {
+            transform: perspective(800px) rotateX(5deg) rotateY(-2.5deg) translateZ(6px) translateY(-2px);
+          }
+        }
 
-          .animate-float-3d {
-            animation: float-3d 8s ease-in-out infinite;
-          }
-        `}</style>
-      </motion.div>
-    </AnimatePresence>
+        .animate-float-3d {
+          animation: float-3d 8s ease-in-out infinite;
+        }
+      `}</style>
+    </div>
   );
 }

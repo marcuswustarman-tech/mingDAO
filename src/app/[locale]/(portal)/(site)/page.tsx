@@ -72,9 +72,20 @@ const DummyContent = () => {
   return (
     <div className="w-full -mt-20">
       {/* Hero Section - Full Width K-line Background */}
-      <div className="relative bg-gradient-to-br from-blue-200 via-sky-100 to-emerald-200 dark:from-blue-950 dark:via-slate-900 dark:to-emerald-900 overflow-hidden h-screen">
+      <div
+        className="relative overflow-hidden h-screen transition-colors duration-500"
+        style={{
+          background: chartStyle === 'default'
+            ? 'linear-gradient(to bottom right, rgb(191, 219, 254), rgb(224, 242, 254), rgb(209, 250, 229))'
+            : chartStyle === 'pixel'
+            ? 'linear-gradient(to bottom right, rgb(0, 0, 0), rgb(20, 20, 20), rgb(0, 0, 0))' // 黑色背景适合像素风
+            : chartStyle === 'river'
+            ? 'rgb(0, 0, 0)' // 纯黑背景适合光之河流
+            : 'linear-gradient(to bottom right, rgb(250, 250, 250), rgb(255, 255, 255), rgb(245, 245, 245))' // 白色背景适合水墨风
+        }}
+      >
         {/* K-line Chart Background */}
-        <div className="absolute inset-0 w-full h-full">
+        <div className="absolute inset-0 w-full h-full z-0">
           <CandlestickChart style={chartStyle} />
         </div>
 
@@ -82,16 +93,19 @@ const DummyContent = () => {
         <ChartStyleSwitcher currentStyle={chartStyle} onStyleChange={handleStyleChange} />
 
         {/* Gradient Overlay - from left (opaque) to right (transparent) */}
+        {/* 根据图表风格调整遮罩透明度 - 放在 chart 之后确保层级正确 */}
         <div
-          className="absolute inset-0 w-full h-full pointer-events-none"
+          className="absolute inset-0 w-full h-full pointer-events-none transition-opacity duration-500 z-[1]"
           style={{
-            background: 'linear-gradient(to right, rgba(191, 219, 254, 0.92) 0%, rgba(165, 243, 252, 0.75) 35%, rgba(167, 243, 208, 0.35) 70%, rgba(255, 255, 255, 0) 100%)'
+            background: 'linear-gradient(to right, rgba(191, 219, 254, 0.92) 0%, rgba(165, 243, 252, 0.75) 35%, rgba(167, 243, 208, 0.35) 70%, rgba(255, 255, 255, 0) 100%)',
+            opacity: chartStyle === 'default' ? 1 : 0 // 非默认风格完全移除遮罩
           }}
         />
         <div
-          className="absolute inset-0 w-full h-full pointer-events-none dark:block hidden"
+          className="absolute inset-0 w-full h-full pointer-events-none dark:block hidden transition-opacity duration-500 z-[1]"
           style={{
-            background: 'linear-gradient(to right, rgba(23, 37, 84, 0.92) 0%, rgba(15, 118, 110, 0.78) 35%, rgba(22, 101, 52, 0.35) 70%, rgba(0, 0, 0, 0) 100%)'
+            background: 'linear-gradient(to right, rgba(23, 37, 84, 0.92) 0%, rgba(15, 118, 110, 0.78) 35%, rgba(22, 101, 52, 0.35) 70%, rgba(0, 0, 0, 0) 100%)',
+            opacity: chartStyle === 'default' ? 1 : 0
           }}
         />
 
@@ -101,14 +115,36 @@ const DummyContent = () => {
             <div className="max-w-3xl flex flex-col space-y-10">
             {/* Main Title */}
             <ScaleFadeIn delay={0.2}>
-              <h1 className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black text-black dark:text-white tracking-tight leading-none">
+              <h1
+                className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tight leading-none transition-colors duration-500"
+                style={{
+                  color: chartStyle === 'pixel'
+                    ? 'rgb(0, 255, 0)'
+                    : chartStyle === 'ink'
+                    ? 'rgb(0, 0, 0)'
+                    : chartStyle === 'river'
+                    ? 'rgb(0, 255, 136)' // 霓虹绿
+                    : undefined
+                }}
+              >
                 <BrandName />
               </h1>
             </ScaleFadeIn>
 
             {/* Subtitle */}
             <FadeInSlide direction="right" delay={0.4}>
-              <p className="text-2xl md:text-3xl lg:text-4xl text-black dark:text-white font-bold leading-tight">
+              <p
+                className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight transition-colors duration-500"
+                style={{
+                  color: chartStyle === 'pixel'
+                    ? 'rgb(255, 255, 0)'
+                    : chartStyle === 'ink'
+                    ? 'rgb(60, 60, 60)'
+                    : chartStyle === 'river'
+                    ? 'rgb(0, 229, 255)' // 电光蓝
+                    : undefined
+                }}
+              >
                 {t('hero.subtitle')}
               </p>
             </FadeInSlide>

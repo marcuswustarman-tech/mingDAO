@@ -13,6 +13,7 @@ export default function ChartStyleSwitcher({ currentStyle, onStyleChange }: Char
     { value: 'ink', label: '1' },
     { value: 'pixel', label: '2' },
     { value: 'default', label: '3' },
+    { value: 'river', label: '4' },
   ];
 
   return (
@@ -20,7 +21,7 @@ export default function ChartStyleSwitcher({ currentStyle, onStyleChange }: Char
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 1 }}
-      className="fixed bottom-8 right-8 z-40 flex gap-1"
+      className="fixed bottom-8 right-8 z-[100] flex gap-1"
     >
       {styles.map((style) => (
         <motion.button
