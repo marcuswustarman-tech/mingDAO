@@ -6,8 +6,8 @@ export default function StructuredData() {
     "@type": "EducationalOrganization",
     "name": "明DAO",
     "alternateName": "明DAO",
-    "url": "https://fxkiller.com",
-    "logo": "https://fxkiller.com/logo.png",
+    "url": "https://mingdaotrade.cn",
+    "logo": "https://mingdaotrade.cn/logo.png",
     "description": "专注于外汇交易的职业交易员培训平台，提供系统化外汇交易培训、实战训练和资金支持。",
     "address": {
       "@type": "PostalAddress",
@@ -34,7 +34,7 @@ export default function StructuredData() {
     "provider": {
       "@type": "Organization",
       "name": "明DAO",
-      "url": "https://fxkiller.com"
+      "url": "https://mingdaotrade.cn"
     },
     "educationalLevel": "专业级",
     "timeRequired": "P30D",

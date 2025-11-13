@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "培训体系 - 30天外汇交易员训练营",
     description: "系统化的外汇交易员培养流程：规则练习、盈利练习、小额实盘、大额矩阵。通过率<18%，留下极少数。",
-    url: "https://fxkiller.com/splan/courses",
+    url: "https://mingdaotrade.cn/splan/courses",
     type: "website",
   },
   alternates: {
-    canonical: "https://fxkiller.com/splan/courses",
+    canonical: "https://mingdaotrade.cn/splan/courses",
   },
 };
 

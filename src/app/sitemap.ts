@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://fxkiller.com'
+  const baseUrl = 'https://mingdaotrade.cn'
   const lastModified = new Date()
 
   // 定义所有公开页面

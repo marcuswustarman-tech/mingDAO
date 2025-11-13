@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "简历接收 - 明DAO外汇交易员招募",
     description: "提交您的简历，开启外汇交易员职业之路。",
-    url: "https://fxkiller.com/resume",
+    url: "https://mingdaotrade.cn/resume",
     type: "website",
   },
   alternates: {
-    canonical: "https://fxkiller.com/resume",
+    canonical: "https://mingdaotrade.cn/resume",
   },
 };
 

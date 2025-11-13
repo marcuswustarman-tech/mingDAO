@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "加入 明DAO - 外汇交易员培训详情",
     description: "30个工作日培训，通过考核后获得资金支持，分润比例60%-90%。了解完整的外汇交易员培养流程。",
-    url: "https://fxkiller.com/splan/join-us",
+    url: "https://mingdaotrade.cn/splan/join-us",
     type: "website",
   },
   alternates: {
-    canonical: "https://fxkiller.com/splan/join-us",
+    canonical: "https://mingdaotrade.cn/splan/join-us",
   },
 };
 

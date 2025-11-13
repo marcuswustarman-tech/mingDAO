@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "明DAO - 专业外汇交易员培训平台",
     description: "30个工作日系统化培养职业外汇交易员，提供专业交易培训、实战训练和资金支持。通过考核即可获得资金管理权限，分润比例高达90%。",
-    url: "https://fxkiller.com",
+    url: "https://mingdaotrade.cn",
     type: "website",
     images: [
       {
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     description: "30个工作日系统化培养职业外汇交易员，提供专业交易培训、实战训练和资金支持。",
   },
   alternates: {
-    canonical: "https://fxkiller.com",
+    canonical: "https://mingdaotrade.cn",
   },
 };
 

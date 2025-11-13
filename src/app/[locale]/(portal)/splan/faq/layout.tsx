@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "常见问题 - 外汇交易员培训FAQ",
     description: "全面解答外汇交易员培训的各类问题：培训免费、考核标准、收入分配、交易纪律等。",
-    url: "https://fxkiller.com/splan/faq",
+    url: "https://mingdaotrade.cn/splan/faq",
     type: "website",
   },
   alternates: {
-    canonical: "https://fxkiller.com/splan/faq",
+    canonical: "https://mingdaotrade.cn/splan/faq",
   },
 };
 

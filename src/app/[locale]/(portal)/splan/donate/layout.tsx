@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "会员招募 - 90天外汇交易员集训计划",
     description: "90天会员培训，顶尖外汇交易员集训+21天教练陪跑。挑战成功可获得1-20万美元MOM操作权。",
-    url: "https://fxkiller.com/splan/donate",
+    url: "https://mingdaotrade.cn/splan/donate",
     type: "website",
   },
   alternates: {
-    canonical: "https://fxkiller.com/splan/donate",
+    canonical: "https://mingdaotrade.cn/splan/donate",
   },
 };
 

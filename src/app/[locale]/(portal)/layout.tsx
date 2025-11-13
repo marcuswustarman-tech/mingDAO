@@ -17,7 +17,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://fxkiller.com'),
+  metadataBase: new URL('https://mingdaotrade.cn'),
   title: {
     default: "明DAO交易孵化器",
     template: "%s | 明DAO交易孵化器"
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "zh_CN",
-    url: "https://fxkiller.com",
+    url: "https://mingdaotrade.cn",
     siteName: "明DAO",
     title: "明DAO - Professional FX Trader Training Platform",
     description: "专注于外汇交易的职业交易员培训平台。提供系统化外汇交易培训、实战训练和资金支持。通过专业考核即可获得资金管理权限，分润比例高达90%。",

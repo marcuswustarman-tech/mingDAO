@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "交易控制台 - 专业交易策略回测与实时监控",
     description: "专业的外汇交易控制台，提供策略回测、实时交易监控和性能分析。",
-    url: "https://fxkiller.com/dashboard",
+    url: "https://mingdaotrade.cn/dashboard",
     type: "website",
   },
   alternates: {
-    canonical: "https://fxkiller.com/dashboard",
+    canonical: "https://mingdaotrade.cn/dashboard",
   },
   robots: {
     index: false, // Dashboard 页面不需要被搜索引擎索引
