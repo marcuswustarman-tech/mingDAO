@@ -16,8 +16,8 @@ export default function BrandName() {
 
   return (
     <>
-      <span className="font-black">FX</span>
-      <span className="font-normal text-gray-600 dark:text-gray-400">Killer</span>
+      <span className="font-black">Ming</span>
+      <span className="font-normal text-gray-600 dark:text-gray-400">DAO</span>
     </>
   );
 }

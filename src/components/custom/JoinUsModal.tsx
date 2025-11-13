@@ -53,7 +53,7 @@ export default function JoinUsModal({ isOpen, onClose }: JoinUsModalProps) {
               {/* Content */}
               <div className="text-center">
                 <div className="w-16 h-16 mx-auto mb-6 bg-black dark:bg-white flex items-center justify-center">
-                  <span className="text-white dark:text-black font-bold text-2xl">FX</span>
+                  <span className="text-white dark:text-black font-bold text-2xl">明</span>
                 </div>
 
                 <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
