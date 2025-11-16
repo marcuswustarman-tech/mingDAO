@@ -19,14 +19,13 @@ interface CandlestickChartProps {
 }
 
 export default function CandlestickChart({ style = 'default' }: CandlestickChartProps) {
-  // 如果是 river 风格，渲染交易终端（9个K线图）
-  if (style === 'river') {
-    return <TradingTerminal />;
-  }
-
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    // 如果是 river 风格，不需要绘制 canvas
+    if (style === 'river') {
+      return;
+    }
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -644,8 +643,7 @@ export default function CandlestickChart({ style = 'default' }: CandlestickChart
         ctx.stroke();
 
         // Draw EMA26 line (slow line)
-        const ema26Alpha = style === 'ink' ? '0.5' : '1';
-        ctx.strokeStyle = style === 'ink' ? `rgba(0, 0, 0, ${ema26Alpha})` : currentStyle.emaColor;
+        ctx.strokeStyle = currentStyle.emaColor;
         ctx.lineWidth = currentStyle.emaLineWidth;
         ctx.beginPath();
         ema26.forEach((value, index) => {
@@ -727,6 +725,11 @@ export default function CandlestickChart({ style = 'default' }: CandlestickChart
       window.removeEventListener('resize', updateCanvasSize);
     };
   }, [style]);
+
+  // 如果是 river 风格，渲染交易终端（9个K线图）
+  if (style === 'river') {
+    return <TradingTerminal />;
+  }
 
   return (
     <div className="w-full h-full">
