@@ -23,9 +23,7 @@ export default function CandlestickChart({ style = 'default' }: CandlestickChart
 
   useEffect(() => {
     // 如果是 river 风格，不需要绘制 canvas
-    if (style === 'river') {
-      return;
-    }
+    if (style === 'river') return;
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -81,7 +79,7 @@ export default function CandlestickChart({ style = 'default' }: CandlestickChart
       },
     };
 
-    const currentStyle = styleConfig[style];
+    const currentStyle = styleConfig[style as Exclude<ChartStyle, 'river'>];
 
     // Set canvas size
     const updateCanvasSize = () => {
@@ -643,7 +641,8 @@ export default function CandlestickChart({ style = 'default' }: CandlestickChart
         ctx.stroke();
 
         // Draw EMA26 line (slow line)
-        ctx.strokeStyle = currentStyle.emaColor;
+        const ema26Alpha = (style as ChartStyle) === 'ink' ? '0.5' : '1';
+        ctx.strokeStyle = (style as ChartStyle) === 'ink' ? `rgba(0, 0, 0, ${ema26Alpha})` : currentStyle.emaColor;
         ctx.lineWidth = currentStyle.emaLineWidth;
         ctx.beginPath();
         ema26.forEach((value, index) => {

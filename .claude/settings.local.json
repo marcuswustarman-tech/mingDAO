@@ -10,6 +10,11 @@
       "Bash(pnpm install)",
       "Bash(set CI=true)",
       "Bash(pnpm install:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm install:*)",
+      "Bash(find:*)",
+      "Bash(vercel --version:*)",
+      "Bash(pnpm add:*)",
       "Bash(pnpm run build:*)"
     ],
     "deny": [],
