@@ -4,7 +4,12 @@
       "Bash(npm run dev:*)",
       "Bash(git push:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(git diff:*)",
+      "Bash(pnpm dev)",
+      "Bash(pnpm install)",
+      "Bash(set CI=true)",
+      "Bash(pnpm install:*)"
     ],
     "deny": [],
     "ask": []
